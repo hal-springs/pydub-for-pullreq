@@ -720,7 +720,12 @@ class AudioSegment(object):
             else:
                 conversion_command += ["-i", "-"]
             stdin_parameter = subprocess.PIPE
-            stdin_data = file.read()
+            
+            #supporting io.BytesIO Object
+            try:
+                stdin_data = file.read()
+            except:
+                stdin_data = file.getvalue()
 
         if codec:
             info = None
